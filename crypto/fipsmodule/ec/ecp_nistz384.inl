@@ -164,7 +164,7 @@ static void add_precomputed_w5(P384_POINT *r, crypto_word_t wvalue,
   booth_recode(&recoded_is_negative, &recoded, wvalue, 5);
 
   alignas(64) P384_POINT h;
-  p384_point_select_w5(&h, table, recoded);
+  // p384_point_select_w5(&h, table, recoded);
 
   alignas(64) BN_ULONG tmp[P384_LIMBS];
   p384_elem_neg(tmp, h.Y);
@@ -227,7 +227,7 @@ static void nistz384_point_mul(P384_POINT *r,
   booth_recode(&recoded_is_negative, &recoded, wvalue, 5);
   dev_assert_secret(!recoded_is_negative);
 
-  p384_point_select_w5(r, table, recoded);
+  // p384_point_select_w5(r, table, recoded);
 
   while (index >= kWindowSize) {
     if (index != START_INDEX) {
