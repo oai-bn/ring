@@ -165,8 +165,7 @@ static void add_precomputed_w5(P384_POINT *r, crypto_word_t wvalue,
 
   alignas(64) P384_POINT h;
 
-  // try to ignore unused ness
-  P384_POINT *row = table;
+  #pragma unused(table)
   // p384_point_select_w5(&h, table, recoded);
 
   alignas(64) BN_ULONG tmp[P384_LIMBS];
