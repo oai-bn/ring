@@ -128,7 +128,6 @@ fn cpp_flags(compiler: &cc::Tool) -> &'static [&'static str] {
         static NON_MSVC_FLAGS: &[&str] = &[
             "-fvisibility=hidden",
             "-std=c1x", // GCC 4.6 requires "c1x" instead of "c11"
-            "-Wall",
             "-Wbad-function-cast",
             "-Wcast-align",
             "-Wcast-qual",
