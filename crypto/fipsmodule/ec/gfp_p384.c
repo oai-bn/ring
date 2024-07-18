@@ -219,28 +219,5 @@ void p384_scalar_mul_mont(ScalarMont r, const ScalarMont a,
 }
 
 
-/* TODO(perf): Optimize this. */
-
-static void p384_point_select_w5(P384_POINT *out,
-                                     const P384_POINT table[16], size_t index) {
-  Elem x; limbs_zero(x, P384_LIMBS);
-  Elem y; limbs_zero(y, P384_LIMBS);
-  Elem z; limbs_zero(z, P384_LIMBS);
-
-  // TODO: Rewrite in terms of |limbs_select|.
-  for (size_t i = 0; i < 16; ++i) {
-    crypto_word_t equal = constant_time_eq_w(index, (crypto_word_t)i + 1);
-    for (size_t j = 0; j < P384_LIMBS; ++j) {
-      x[j] = constant_time_select_w(equal, table[i].X[j], x[j]);
-      y[j] = constant_time_select_w(equal, table[i].Y[j], y[j]);
-      z[j] = constant_time_select_w(equal, table[i].Z[j], z[j]);
-    }
-  }
-
-  limbs_copy(out->X, x, P384_LIMBS);
-  limbs_copy(out->Y, y, P384_LIMBS);
-  limbs_copy(out->Z, z, P384_LIMBS);
-}
-
 
 #include "ecp_nistz384.inl"
